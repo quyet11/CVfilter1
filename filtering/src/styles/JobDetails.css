@@ -1,0 +1,57 @@
+/* JobDetails.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.job-info {
+    margin-bottom: 20px;
+}
+.job-info p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+.job-info textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    resize: none;
+}
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+.button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+.button.save {
+    background-color: #28a745;
+}
+.button.save:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,62 @@
+/* src/styles/AiCvFiltering.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+.search-bar, .filter-bar {
+    margin-bottom: 20px;
+}
+
+.filter-bar select, .search-bar input {
+    padding: 10px;
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+}
+
+.applicant-list {
+    list-style: none;
+    padding: 0;
+}
+
+.applicant-card {
+    padding: 15px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons button {
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background-color: #0056b3;
+}
