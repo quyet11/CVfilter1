@@ -1,4 +1,4 @@
-require('dotenv').config(); // Để sử dụng biến môi trường từ file .env
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -122,7 +122,8 @@ app.post('/register', (req, res) => {
                 });
         });
     });
-});app.post('/register', (req, res) => {
+});
+app.post('/register', (req, res) => {
     const { fullname, email, password, user_type } = req.body;
 
     // Kiểm tra định dạng email
@@ -169,7 +170,7 @@ app.post('/register', (req, res) => {
 
 
 // API để thêm job posting
-// API để thêm job posting
+
 app.post('/job-postings', (req, res) => {
     // Kiểm tra dữ liệu từ request body
     const { jobTitle, jobDescription, requiredSkills, experience, salaryRange, expiryDate, jobType, postedDate } = req.body;
@@ -202,26 +203,26 @@ app.get('/job-postings', (req, res) => {
             return res.status(500).json({ message: 'Lấy danh sách thất bại' });
         }
 
-        // Trả về danh sách job postings
+
         return res.status(200).json(results);
     });
 });
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Đường dẫn đến thư mục bạn muốn lưu tệp
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // Đặt tên cho tệp
+        cb(null, file.originalname);
     },
 });
 
-const upload = multer({ storage: storage }); // Chỉ nên định nghĩa một lần
+const upload = multer({ storage: storage });
 
 
-// Route để nhận thông tin ứng tuyển
+
 app.post('/api/apply', upload.single('cv'), (req, res) => {
     console.log('Request body:', req.body);
-    console.log('User ID:', req.body.userId); // Hoặc `req.user.id` nếu dùng session
+    console.log('User ID:', req.body.userId);
 
     const { fullName, email, coverLetter, jobId, userId } = req.body;
     const cvPath = req.file ? req.file.path : null;
@@ -241,7 +242,7 @@ app.post('/api/apply', upload.single('cv'), (req, res) => {
 });
 
 
-// API để lưu hồ sơ ứng viên
+
 app.post('/api/candidate-profile', upload.single('profilePicture'), (req, res) => {
     const { fullName, email, workExperience, education } = req.body;
     const profilePicture = req.file ? req.file.path : null;
@@ -250,7 +251,7 @@ app.post('/api/candidate-profile', upload.single('profilePicture'), (req, res) =
         return res.status(400).json({ message: 'Thiếu các trường bắt buộc' });
     }
 
-    // Kiểm tra email đã tồn tại chưa
+
     const checkEmailSql = 'SELECT * FROM candidate_profiles WHERE email = ?';
     db.query(checkEmailSql, [email], (error, results) => {
         if (error) {
@@ -261,7 +262,7 @@ app.post('/api/candidate-profile', upload.single('profilePicture'), (req, res) =
             return res.status(400).json({ message: 'Email đã tồn tại' });
         }
 
-        // Nếu email chưa tồn tại, tiếp tục lưu dữ liệu
+
         const sql = 'INSERT INTO candidate_profiles (full_name, email, profile_picture, work_experience, education) VALUES (?, ?, ?, ?, ?)';
         db.query(sql, [fullName, email, profilePicture, workExperience, education], (error, results) => {
             if (error) {
@@ -276,7 +277,7 @@ app.post('/api/candidate-profile', upload.single('profilePicture'), (req, res) =
 
 
 
-// API để lấy danh sách ứng viên
+
 app.get('/api/candidates', (req, res) => {
     const sql = 'SELECT * FROM candidate_profiles';
 
@@ -313,7 +314,7 @@ app.get('/api/applicants', (req, res) => {
         }
     });
 });
-// In your Express server file
+
 app.use(express.json());
 app.post('/api/evaluate-cv', (req, res) => {
     const applicantData = req.body;
@@ -326,14 +327,14 @@ app.post('/api/evaluate-cv', (req, res) => {
         feedback: "Good candidate for the job.",
     };
 
-    // Kiểm tra định dạng JSON
+
     console.log('Evaluation Result:', evaluationResult);
 
     res.json(evaluationResult);
 });
 app.get('/api/applicants/:id', (req, res) => {
-    const { id } = req.params; // Lấy ID từ tham số URL
-    const sql = 'SELECT * FROM applications WHERE id = ?'; // Truy vấn để lấy thông tin ứng viên theo ID
+    const { id } = req.params;
+    const sql = 'SELECT * FROM applications WHERE id = ?';
 
     db.query(sql, [id], (err, results) => {
         if (err) {
@@ -341,18 +342,17 @@ app.get('/api/applicants/:id', (req, res) => {
             return res.status(500).json({ message: 'Lấy thông tin ứng viên thất bại' });
         }
 
-        // Kiểm tra xem có ứng viên nào với ID đã cho không
+
         if (results.length === 0) {
             return res.status(404).json({ message: 'Không tìm thấy ứng viên với ID đã cho.' });
         }
 
-        // Trả về thông tin ứng viên
         return res.status(200).json(results[0]);
     });
 });
 
 
-// Chạy server trên cổng 3001
+
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });
